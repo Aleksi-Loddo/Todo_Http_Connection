@@ -1,12 +1,11 @@
 package com.example.htttp_and_todolist.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,9 +16,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.htttp_and_todolist.ui.screens.TodoApp
 import com.example.htttp_and_todolist.viewmodel.Todo
-import com.example.htttp_and_todolist.viewmodel.TodoViewModel
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,19 +26,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Htttp_and_todolistTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    TodoScreen(modifier = Modifier.padding(innerPadding))
-                }
+                TodoApp()
             }
         }
     }
 }
 
-@Composable
-fun TodoScreen(modifier: Modifier = Modifier, todoViewModel: TodoViewModel =
-    viewModel()) {
-    TodoList(modifier,todoViewModel.todos)
-}
+
+
+
+
+
+
+
+
+
 @Composable
 fun TodoList(modifier: Modifier = Modifier, todos: List<Todo>) {
     LazyColumn (
@@ -56,11 +57,23 @@ fun TodoList(modifier: Modifier = Modifier, todos: List<Todo>) {
     }
 }
 
+@Composable
+fun ErrorScreen(modifier: Modifier) {
+    Text("Error retrieving data from API.", modifier = modifier)
+}
+
+
+@Composable
+fun LoadingScreen(modifier: Modifier) {
+    Text("Loading...", modifier = modifier)
+
+}
+
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     Htttp_and_todolistTheme {
-        TodoScreen()
+        TodoApp()
     }
 }
